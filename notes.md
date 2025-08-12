@@ -36,6 +36,10 @@
 
 - in elixir we have basic datatypes and transformations of that datatype
 - functions must be within a module (`Module.function()`)
+  - Note: when runing `iex> h (Module)` it will return `<function>[!/?]/#`; ex: `chmod!/2`
+    - `#` indicates expected params
+    - if `!` is present, the function will raise an error if it occurs. If not it will usually return a touple in the format of `{:error, reason}`
+    - if `?` is present, it will return a boolean
   - One module is always imported - `Kernel`
   - `String.upcase("hi")`
   - for javascript, types/primitives are treated as Objects. This is not the case in elixir
@@ -58,9 +62,13 @@ list2 = list
 list ++ [4]
 
 list
+"""
 > [1,2,3,4]
+"""
 list2
+"""
 > [1,2,3]
+"""
 ```
 
 ## Lists
@@ -86,6 +94,70 @@ list2
   - To get the explicit last element, you can do `List.last(list)`
     - This is computationally expensive
 
-## Enum
+## Enum module
 
-- A list is an Enumerable
+- Called to deal with any enumerables, including lists!
+- `Enum.concat(list1, list2)` works the same as `list1 ++ list2`
+
+## Tuple Module
+
+- Dataset used to save a fixed number of elmeents
+- no operations can be done to a tuple
+- They are saved sequentially in memory
+  - `elem({"xavier","xvr"},1)` returns `"xvr"`; elem is part of Kernel module.
+- Tuples are traditionall returned for functions
+  - `File.read "test.txt"` returns `{:ok, <content>}`
+  - if file is unable to be read, returns `{:error, <some sort of status code or error message>}`
+  - if `File.read! "test.txt"` is called and test.txt doesn't exist, an error will be raised
+
+## Keyword Lists
+
+- A way of passing optional parameters to a fcn.
+- `String.split("1 2 3", " ")` returns `["1", "2", "3"]`
+- Say we have a string with a lot of extra spaces:
+  - `String.split("1               2 3", " ")` returns `["1", "", <...>, "", "2", "3"]
+  - instead, we use a keyworded list as a pram: `String.split("1               2 3", " ", trim: true)`. This returns `["1", "2", "3"]`
+- A keyword list is a tuple where the first element must be an atom
+  - `[{:trim, true}, {:param2, true}]` <- basically an object
+  - can be passed into a fcn this way as well:
+    - `String.split("1               2 3", " ", [{:trim, true}])` or `String.split("1               2 3", " ", [trim: true])`
+  - if the last element of a function is a keyword list, you can just remove it as shown in the og example
+    - `String.split("1               2 3", " ", trim: true)`
+- Example, DB querying
+  - `query = from(user in User, where: user.age > 18)`
+  - again, can be `[where: user.age > 18]` or `[{:where, user.age > 18}]`
+- This can be used for functions, typically the final variable and named `opts`
+  - Can then use `Keyword.validate()` to ensure the keyword list is valid; assign defaults with this as well.
+  - things can be retrieved by calling `opts[:key]`
+  - Also can be retrieved with `Keyword.get(:key)`
+
+## Map Module
+
+```elixir
+"""
+ugly syntax
+"""
+map = %{"name" => "xavier", :age => 22, 1 => false}
+```
+
+- values can be retrieved by `map[<key>]`
+
+```elixir
+# better syntax
+map = %{:name => "xavier", :age => 22}
+#> map = %{name: "xavier", age: 22}
+
+# output is defaulted to the better syntax if all keys are atoms.
+map = %{name: "xavier", age: 22}
+#> map = %{name: "xavier", age: 22}
+```
+
+- if a key is an atom, can be accessed by: `map.<key>` like a regular js object
+  - This raises an error if the key is invalid
+  - A way around this is with `Map.get(map, <key>)` which returns either the value at that key or `nil`
+  - for defaults, simply add a third param: `Map.get(map, <key>, <default> \\ nil)` 
+    - `\\` implies optional. Anything after the `\\` is the default value for that param.
+- To add values to a map:
+  - `Map.put(map, <new_key>, <value>)`; again this does not modify the og map value and a new variable must be reassigned.
+- To edit a value in a map:
+  - `&{map | age: 100}`
