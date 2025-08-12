@@ -36,6 +36,7 @@
 
 - in elixir we have basic datatypes and transformations of that datatype
 - functions must be within a module (`Module.function()`)
+  - One module is always imported - `Kernel`
   - `String.upcase("hi")`
   - for javascript, types/primitives are treated as Objects. This is not the case in elixir
     - js `"hi".toUpperCase()`
@@ -61,3 +62,30 @@ list
 list2
 > [1,2,3]
 ```
+
+## Lists
+
+- Lists are singly linked lists
+- `list = [1,2,3]` is stored in memory as:
+  - `[1, addr2] -> [2, addr3] -> [3, <no address saved>]`
+  - not saved sequentially in memory
+  - you cannot get lists by element
+  - `list[2]` does not work; must traverse entire list to get the value at index 2
+- To append to the beginning:
+  - `[0] ++ list` - **remember this makes a new list, does not mutate the first**
+  - cheap, simply gets first memory addr
+- To append to end:
+  - `list ++ [4]`
+  - expensive operation, must traverse the entire length to append
+- To remove entries:
+  - `list -- [2]` removes 2 from list
+- Get the Head of a list
+  - `hd list` or `hd(list)` - part of Kernel, so technically `Kernel.hd(list)`
+- Tail of a list - the rest of a list once the head is removed
+  - `tl list` or `tl(list)`
+  - To get the explicit last element, you can do `List.last(list)`
+    - This is computationally expensive
+
+## Enum
+
+- A list is an Enumerable
