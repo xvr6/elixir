@@ -44,11 +44,11 @@
 - In traditional OOP languages, one can never be sure if something is mutating the og variable or creating a new one; causes confusion.
   - traditional oop mutability:
     - js `const name = "xavier"` <- `name.toUpperCase()` produces a copy that is upper case, no change to og name variable
-    - js `const arr = [1,2,3]`   <- `arr.push(4)` changes the arr to now be `[1,2,3,4]`
+    - js `const arr = [1,2,3]`   <- `arr.push(4)` changes arr to now be `[1,2,3,4]`
   - in elixir mutability does not exist:
     - ex `list = [1,2,3]`        <- `list ++ [4, 4_000]` returns a new list with the new entires appended to it, the first one being unmodified
   - if one wants to change the original variable, you must reassign:
-    - ex `list = list ++ [70]` returns `[1,2,3,4,4000,70]`
+    - ex `list = list ++ [70]` returns `[1,2,3,70]`
   - no mutability means no issues with deep/shallow copy (by value or by copy)
   - you cannot copy by reference, only by value.
 
