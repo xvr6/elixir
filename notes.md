@@ -9,7 +9,7 @@
   - Call div(x,y) to get int back
 - String concatenation - need to use `"`
   - `"hello" <> "world"`
-  - `"${var1} #{var2}"`
+  - `"#{var1} #{var2}"`
 - Atoms <- basically a named constant
   - Should be used when a string is reused - more memory efficient
   - :atom
