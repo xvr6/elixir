@@ -62,12 +62,9 @@ list2 = list
 list ++ [4]
 
 list
-"""
-> [1,2,3,4]
-"""
+#> [1,2,3,4]
 list2
-"""
-> [1,2,3]
+#> [1,2,3]
 """
 ```
 
@@ -134,13 +131,9 @@ list2
 ## Map Module
 
 ```elixir
-"""
-ugly syntax
-"""
+#ugly syntax
 map = %{"name" => "xavier", :age => 22, 1 => false}
 ```
-
-- values can be retrieved by `map[<key>]`
 
 ```elixir
 # better syntax
@@ -152,6 +145,7 @@ map = %{name: "xavier", age: 22}
 #> map = %{name: "xavier", age: 22}
 ```
 
+- values can be retrieved by `map[<key>]`
 - if a key is an atom, can be accessed by: `map.<key>` like a regular js object
   - This raises an error if the key is invalid
   - A way around this is with `Map.get(map, <key>)` which returns either the value at that key or `nil`
