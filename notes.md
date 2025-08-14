@@ -36,9 +36,9 @@
 
 - in elixir we have basic datatypes and transformations of that datatype
 - functions must be within a module (`Module.function()`)
-  - Note: when runing `iex> h (Module)` it will return `<function>[!/?]/#`; ex: `chmod!/2`
+  - Note: when running `iex> h (Module)` it will return `<function>[!/?]/#`; ex: `chmod!/2`
     - `#` indicates expected params
-    - if `!` is present, the function will raise an error if it occurs. If not it will usually return a touple in the format of `{:error, reason}`
+    - if `!` is present, the function will raise an error if it occurs. If not it will usually return a tuple in the format of `{:error, reason}`
     - if `?` is present, it will return a boolean
   - One module is always imported - `Kernel`
   - `String.upcase("hi")`
@@ -93,17 +93,17 @@ list2
 
 ## Enum module
 
-- Called to deal with any enumerables, including lists!
+- Called to deal with any enumerable, including lists!
 - `Enum.concat(list1, list2)` works the same as `list1 ++ list2`
 
 ## Tuple Module
 
-- Dataset used to save a fixed number of elmeents
+- Dataset used to save a fixed number of elements
 - no operations can be done to a tuple
 - They are saved sequentially in memory
   - `elem({"xavier","xvr"},1)` returns `"xvr"`; elem is part of Kernel module.
-- Tuples are traditionall returned for functions
-  - `File.read "test.txt"` returns `{:ok, <content>}`
+- Tuples are traditionally really only used in returns from functions
+  - ex: `File.read "test.txt"` returns `{:ok, <content>}`
   - if file is unable to be read, returns `{:error, <some sort of status code or error message>}`
   - if `File.read! "test.txt"` is called and test.txt doesn't exist, an error will be raised
 
@@ -149,7 +149,7 @@ map = %{name: "xavier", age: 22}
 - if a key is an atom, can be accessed by: `map.<key>` like a regular js object
   - This raises an error if the key is invalid
   - A way around this is with `Map.get(map, <key>)` which returns either the value at that key or `nil`
-  - for defaults, simply add a third param: `Map.get(map, <key>, <default> \\ nil)` 
+  - for defaults, simply add a third param: `Map.get(map, <key>, <default> \\ nil)`
     - `\\` implies optional. Anything after the `\\` is the default value for that param.
 - To add values to a map:
   - `Map.put(map, <new_key>, <value>)`; again this does not modify the og map value and a new variable must be reassigned.
